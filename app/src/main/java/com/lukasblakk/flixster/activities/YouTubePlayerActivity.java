@@ -25,8 +25,9 @@ public class YouTubePlayerActivity extends YouTubeBaseActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
 
-                        // do any work here to cue video, play video, etc.
-                        youTubePlayer.cueVideo("5xVh-7ywKpE");
+                        // get the key for the video to play from the Intent
+                        String youTubeKey = getIntent().getStringExtra("youTubeKey");
+                        youTubePlayer.cueVideo(youTubeKey);
                     }
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,

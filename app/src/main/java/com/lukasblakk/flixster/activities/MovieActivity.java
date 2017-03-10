@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+
 public class MovieActivity extends AppCompatActivity {
 
     ArrayList<Movie> movies;
@@ -72,10 +73,42 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     public void launchYouTubeView(Movie movie) {
+        String youTubeKey = fetchYouTubeKey(movie);
+
         // first parameter is the context, second is the class of the activity to launch
         Intent i = new Intent(MovieActivity.this, YouTubePlayerActivity.class);
         // put youTube key into the bundle for access in the youTube activity
-        i.putExtra("youTubeKey", movie.getYouTubeKey());
+        i.putExtra("youTubeKey", youTubeKey);
         startActivity(i); // brings up the second activity
+    }
+
+    public String fetchYouTubeKey(final Movie movie){
+
+        if (movie.getYouTubeKey() == "") {
+            String videosUrl = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US", movie.getId());
+
+            AsyncHttpClient client = new AsyncHttpClient();
+
+            client.get(videosUrl, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    JSONArray videoJsonResults = null;
+
+                    try {
+                        videoJsonResults = response.getJSONArray("results");
+                        movie.setYouTubeKey(videoJsonResults.getJSONObject(0).getString("key"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+            });
+        }
+
+        return movie.getYouTubeKey();
     }
 }
