@@ -1,12 +1,16 @@
-package com.lukasblakk.flixster;
+package com.lukasblakk.flixster.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.lukasblakk.flixster.R;
 import com.lukasblakk.flixster.adapters.MovieArrayAdapter;
 import com.lukasblakk.flixster.models.Movie;
 
@@ -34,6 +38,15 @@ public class MovieActivity extends AppCompatActivity {
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
 
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Grab the movie that is tapped on in the view
+                Movie movie = movieAdapter.getItem(position);
+                launchYouTubeView(movie);
+            }
+        });
+
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -56,5 +69,13 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
+    }
+
+    public void launchYouTubeView(Movie movie) {
+        // first parameter is the context, second is the class of the activity to launch
+        Intent i = new Intent(MovieActivity.this, YouTubePlayerActivity.class);
+        // put youTube key into the bundle for access in the youTube activity
+        i.putExtra("youTubeKey", movie.getYouTubeKey());
+        startActivity(i); // brings up the second activity
     }
 }

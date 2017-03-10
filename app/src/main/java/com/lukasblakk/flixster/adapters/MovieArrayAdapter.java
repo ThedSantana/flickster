@@ -1,7 +1,6 @@
 package com.lukasblakk.flixster.adapters;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import com.lukasblakk.flixster.R;
 import com.lukasblakk.flixster.models.Movie;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -64,12 +61,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         }
 
         // populate the data
-        // Orientation portrait = 1, landscape = 2
+        // Orientation values to check: Portrait = 1, Landscape = 2
         Integer orientation = getContext().getResources().getConfiguration().orientation;
         if (orientation == 1) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.imageView);
+            Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.poster_placeholder_port).into(viewHolder.imageView);
         } else {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.imageView);
+            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.poster_placeholder_land).into(viewHolder.imageView);
         }
         viewHolder.title.setText(movie.getOriginalTitle());
         viewHolder.overview.setText(movie.getOverview());
