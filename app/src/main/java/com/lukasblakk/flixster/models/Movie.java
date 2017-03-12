@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 public class Movie {
 
-    // Rating = vote average and goes between 0.5 and 10
-
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
@@ -36,6 +34,19 @@ public class Movie {
         return youTubeKey;
     }
 
+    // Rating = vote average and goes between 0.5 and 10
+    public Double getRating() { return rating; }
+
+    public Boolean isPopular() {
+        Boolean popular = false;
+
+        if (rating > 5) {
+            popular = true;
+        }
+
+        return popular;
+    }
+
     public void setYouTubeKey(String youTubeKey) {
         this.youTubeKey = youTubeKey;
     }
@@ -46,6 +57,7 @@ public class Movie {
     String backdropPath;
     Integer id;
     String youTubeKey;
+    Double rating;
 
     public Movie(JSONObject jsonObject) throws JSONException{
         this.posterPath = jsonObject.getString("poster_path");
@@ -54,6 +66,7 @@ public class Movie {
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.id = jsonObject.getInt("id");
         this.youTubeKey = "";
+        this.rating = jsonObject.getDouble("vote_average");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array){

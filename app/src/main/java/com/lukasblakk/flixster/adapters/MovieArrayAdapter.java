@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -25,10 +27,14 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     // View lookup cache
-    private static class ViewHolder {
-        TextView title;
-        TextView overview;
-        ImageView imageView;
+    static class ViewHolder {
+        @BindView(R.id.tvTitle) TextView title;
+        @BindView(R.id.tvOverview) TextView overview;
+        @BindView(R.id.ivMovieImage) ImageView imageView;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
 
@@ -47,15 +53,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // check the existing view being reused
         if (convertView == null){
             // If there's no view to re-use, inflate a brand new view for row
-            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.tvTitle);
-            viewHolder.overview = (TextView) convertView.findViewById(R.id.tvOverview);
-            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-            // clear out the image
-            viewHolder.imageView.setImageResource(0);
-
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             // View is being recycled, retrieve the viewHolder object from tag
