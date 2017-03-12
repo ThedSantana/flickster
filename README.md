@@ -34,7 +34,9 @@ The following **bonus** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Remove the Titlebar for better look
+* [x] Replace default launcher icon
 
+ 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
