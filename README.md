@@ -2,7 +2,7 @@
 
 **Flickster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **10** hours spent in total
+Time spent: **14** hours spent in total
 
 ## User Stories
 
@@ -48,7 +48,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+This was a great assignment and I found it to be challenging to work with Relative Layouts, getting the play icon over the video and in the right place.  I also enjoyed getting the YouTube video player working but I used the OnClickListener on the ListView to load it in a separate activity and I'd like to work next time on how to trigger various activities within a ListView (eg: a video OR a movie details activity).  ButterKnife implementation was easy and I can see how in a larger app that would save a ton of work & extra code.  Didn't get a chance to play with RatingsBar but I read it over and would like to try it in a future project.
 
 ## Open-source libraries used
 
