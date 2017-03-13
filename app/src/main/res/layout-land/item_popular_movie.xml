@@ -14,18 +14,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:src="@drawable/videoplaceholder"/>
-
+        tools:src="@drawable/videoplaceholder"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/ivPlayOverlay"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="100dp"
         android:adjustViewBounds="true"
         android:elevation="10dp"
-        android:src="@drawable/youtubeplay"/>
+        android:src="@drawable/youtubeplay"
+        android:layout_alignBottom="@+id/ivMovieImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -33,20 +35,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:text="Rings"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/tvOverview"
-        android:layout_alignStart="@+id/tvOverview" />
+        android:layout_below="@+id/ivMovieImage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_margin="5dp"
-        android:layout_toEndOf="@+id/ivMovieImage"
-        android:layout_toRightOf="@+id/ivMovieImage"
         android:fontFamily="sans-serif-condensed"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        tools:text="Julia becomes worried about her boyfriend, Holt when he explores the dark urban legend of a mysterious videotape said to kill the watcher seven days after viewing. She sacrifices herself to save her boyfriend and in doing so makes a horrifying discovery: there is a 'movie within the movie' that no one has ever seen before." />
+        tools:text="Julia becomes worried about her boyfriend, Holt when he explores the dark urban legend of a mysterious videotape said to kill the watcher seven days after viewing. She sacrifices herself to save her boyfriend and in doing so makes a horrifying discovery: there is a 'movie within the movie' that no one has ever seen before."
+        android:layout_below="@+id/tvTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

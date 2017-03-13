@@ -53,8 +53,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // check the existing view being reused
         if (convertView == null){
             // If there's no view to re-use, inflate a brand new view for row
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_movie, parent, false);
+            // Get the heterogenous view for popular/not popular
+            convertView = getInflatedLayoutForPopularity(movie.isPopular());
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -66,14 +66,31 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // Orientation values to check: Portrait = 1, Landscape = 2
         Integer orientation = getContext().getResources().getConfiguration().orientation;
         if (orientation == 1) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder_port).into(viewHolder.imageView);
+            if (movie.isPopular()){
+                Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder).into(viewHolder.imageView);
+            } else {
+                Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder_port).into(viewHolder.imageView);
+            }
         } else {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder).into(viewHolder.imageView);
+            if (movie.isPopular()) {
+                Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder).into(viewHolder.imageView);
+            } else {
+                Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(10, 10)).placeholder(R.drawable.videoplaceholder_port).into(viewHolder.imageView);
+            }
         }
         viewHolder.title.setText(movie.getOriginalTitle());
         viewHolder.overview.setText(movie.getOverview());
 
         // return the view
         return convertView;
+    }
+
+    private View getInflatedLayoutForPopularity(Boolean popular){
+        if (popular == true) {
+            return LayoutInflater.from(getContext()).inflate(R.layout.item_popular_movie, null);
+        } else {
+            return LayoutInflater.from(getContext()).inflate(R.layout.item_movie, null);
+        }
+
     }
 }
